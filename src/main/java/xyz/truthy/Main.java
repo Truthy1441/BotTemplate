@@ -15,16 +15,16 @@ public class Main {
 
     public Main() throws LoginException {
 
-        String token ="Bot Token";
+        String token ="";
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
-        builder.setActivity(Activity.watching("description"));
+        builder.setActivity(Activity.watching("BTC, LTC, ETH"));
         builder.setStatus(OnlineStatus.ONLINE);
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT);
         shardManager = builder.build();
         System.out.println("Bot Started");
 
-        shardManager.addEventListener(new CommandManager());
+        shardManager.addEventListener(new CommandManager(), new Verification());
     }
 
 

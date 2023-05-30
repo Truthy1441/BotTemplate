@@ -41,8 +41,18 @@ public class CommandManager extends ListenerAdapter {
 
         String version = "v.1.0.0";
         String command = event.getName();
-        String user = event.getUser().getId().toString();
+        Color successColor = new Color(10, 255, 100);
 
+
+        if (command.equals("verify_embed")) {
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setColor(successColor)
+                    .setTitle("Verification")
+                    .setDescription("React to this message to gain access to the rest of the server!");
+
+            event.getChannel().sendMessageEmbeds(embed.build()).queue();
+            event.reply("Created Embed").setEphemeral(true).queue();
+        }
     }
 
 
@@ -53,7 +63,7 @@ public class CommandManager extends ListenerAdapter {
         OptionData channel = new OptionData(OptionType.CHANNEL, "channel", "The Channel you want the Verification in", true);
         OptionData msg = new OptionData(OptionType.STRING, "message", "Enter the message of your verify embed! (use *default* for the default message)", true);
 
-        commandData.add(Commands.slash("example", "example command").addOptions(msg));
+        commandData.add(Commands.slash("verify_embed", "Create a verify embed (admin command)").addOptions());
         event.getJDA().updateCommands().addCommands(commandData).queue();
     }
 }
